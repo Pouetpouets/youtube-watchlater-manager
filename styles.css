@@ -23,6 +23,7 @@
     width: 100%;
     height: 36px;
     margin: 4px 0;
+    transition: background-color 0.2s;
 }
 
 .wl-btn.select-all {
@@ -30,18 +31,80 @@
     color: white;
 }
 
+.wl-btn.select-all:hover {
+    background: #0056c7;
+}
+
 .wl-btn.delete-selected {
     background: #cc0000;
     color: white;
 }
 
+.wl-btn.delete-selected:hover {
+    background: #b00000;
+}
+
+/* Subscription checkbox styling */
+.subscription-checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+    opacity: 0.3;
+    transition: opacity 0.2s;
+    position: relative;
+    z-index: 10000;
+}
+
 .subscription-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #065fd4;
+    border-radius: 4px;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    background-color: white;
+}
+
+.subscription-checkbox:checked {
+    background-color: #065fd4;
+    border-color: #065fd4;
+}
+
+.subscription-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.subscription-checkbox:hover {
+    border-color: #0056c7;
+}
+
+/* Make container fully visible when checkbox is checked */
+.subscription-checkbox:checked + .subscription-checkbox-label {
+    opacity: 1;
+}
+
+.subscription-checkbox-container:hover {
+    opacity: 1;
+}
+
+/* Video checkbox styling (for Watch Later) */
+.video-checkbox {
     margin: 10px;
     width: 20px;
     height: 20px;
     cursor: pointer;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 10000;
+    position: relative;
+    z-index: 9999;
 }
