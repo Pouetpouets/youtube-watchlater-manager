@@ -41,7 +41,7 @@ export function addSubscriptionControls() {
                         subscribeButton.click();
                         await new Promise(r => setTimeout(r, 1500));
                         
-                        const unsubscribeButton = document.querySelector('button.yt-spec-button-shape-next--call-to-action[aria-label="Se désabonner"]');
+                        const unsubscribeButton = document.querySelector('button.yt-spec-button-shape-next--call-to-action[aria-label="Se d\u00e9sabonner"]');
                         console.log('[DEBUG] Found unsubscribe button:', unsubscribeButton);
                         
                         if (unsubscribeButton) {
@@ -81,11 +81,36 @@ export function addSubscriptionControls() {
     function addCheckboxesToChannels() {
         const channelItems = document.querySelectorAll('ytd-channel-renderer');
         channelItems.forEach(item => {
-            if (!item.querySelector('.subscription-checkbox')) {
+            if (!item.querySelector('.subscription-checkbox-container')) {
+                const container = document.createElement('div');
+                container.className = 'subscription-checkbox-container';
+                
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.className = 'subscription-checkbox';
-                item.insertBefore(checkbox, item.firstChild);
+                
+                // Add visual label
+                const label = document.createElement('label');
+                label.className = 'subscription-checkbox-label';
+                
+                container.appendChild(checkbox);
+                container.appendChild(label);
+                
+                // Insert near the channel info
+                const channelInfo = item.querySelector('#info-container');
+                if (channelInfo) {
+                    channelInfo.insertBefore(container, channelInfo.firstChild);
+                }
+
+                // Add hover effect to the container
+                item.addEventListener('mouseenter', () => {
+                    container.style.opacity = '1';
+                });
+                item.addEventListener('mouseleave', () => {
+                    if (!checkbox.checked) {
+                        container.style.opacity = '0.3';
+                    }
+                });
             }
         });
     }
