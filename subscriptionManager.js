@@ -73,11 +73,30 @@ export function addSubscriptionControls() {
     controlPanel.appendChild(selectAllBtn);
     controlPanel.appendChild(unsubscribeBtn);
 
-    // Changed the selector to target the main content area instead of the sidebar
-    const targetElement = document.querySelector('#content, ytd-browse[page-subtype="subscriptions"]');
-    if (targetElement) {
-        targetElement.insertBefore(controlPanel, targetElement.firstChild);
+    // Insert into the navbar section
+    function insertControlPanel() {
+        const masthead = document.querySelector('ytd-masthead #end');
+        if (masthead) {
+            // Create a container for proper alignment
+            const container = document.createElement('div');
+            container.className = 'navbar-control-container';
+            container.appendChild(controlPanel);
+            
+            masthead.insertBefore(container, masthead.firstChild);
+            return true;
+        }
+        return false;
     }
+
+    // Try to insert the control panel, retry if not successful
+    let attempts = 0;
+    const maxAttempts = 10;
+    const insertInterval = setInterval(() => {
+        if (insertControlPanel() || attempts >= maxAttempts) {
+            clearInterval(insertInterval);
+        }
+        attempts++;
+    }, 1000);
 
     function addCheckboxesToChannels() {
         const channelItems = document.querySelectorAll('ytd-channel-renderer');
