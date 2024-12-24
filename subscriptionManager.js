@@ -41,7 +41,7 @@ export function addSubscriptionControls() {
                         subscribeButton.click();
                         await new Promise(r => setTimeout(r, 1500));
                         
-                        const unsubscribeButton = document.querySelector('button.yt-spec-button-shape-next--call-to-action[aria-label="Se d\u00e9sabonner"]');
+                        const unsubscribeButton = document.querySelector('button.yt-spec-button-shape-next--call-to-action[aria-label="Se désabonner"]');
                         console.log('[DEBUG] Found unsubscribe button:', unsubscribeButton);
                         
                         if (unsubscribeButton) {
@@ -73,9 +73,10 @@ export function addSubscriptionControls() {
     controlPanel.appendChild(selectAllBtn);
     controlPanel.appendChild(unsubscribeBtn);
 
-    const guideSection = document.querySelector('ytd-guide-section-renderer');
-    if (guideSection) {
-        guideSection.insertBefore(controlPanel, guideSection.firstChild);
+    // Changed the selector to target the main content area instead of the sidebar
+    const targetElement = document.querySelector('#content, ytd-browse[page-subtype="subscriptions"]');
+    if (targetElement) {
+        targetElement.insertBefore(controlPanel, targetElement.firstChild);
     }
 
     function addCheckboxesToChannels() {
