@@ -12,8 +12,9 @@
         "https://www.youtube.com/playlist*",
         "https://www.youtube.com/feed/channels*"
       ],
-      "js": ["content.js"],
-      "css": ["styles.css"]
+      "js": ["utils.js", "watchLaterManager.js", "subscriptionManager.js", "content.js"],
+      "css": ["styles.css"],
+      "type": "module"
     }
   ]
 }
